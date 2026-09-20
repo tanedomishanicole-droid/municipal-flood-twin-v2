@@ -17,7 +17,7 @@ if not st.session_state['authenticated']:
     
     passcode = st.text_input("Enter Institutional Access Passcode:", type="password")
     if st.button("Verify Credentials"):
-        if passcode == "PAGASA-2026":
+        if passcode == "MUNICIPAL-DRRMC-SECURE911!":
             st.session_state['authenticated'] = True
             st.success("Access Granted. Initializing Digital Twin Environment...")
             st.rerun()
