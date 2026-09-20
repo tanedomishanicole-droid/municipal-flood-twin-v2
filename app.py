@@ -108,9 +108,9 @@ else:
             }
         elif selected_region == "National Capital Region (NCR)":
             province_data = {
-                "District Sector": ["Eastern District", "Northern District", "Southern District", "Capital District"],
-                "Command Hub City": ["Marikina City", "Caloocan City", "Taguig City", "Manila City"],
-                "Risk Classification": ["🚨 High P4F Catchment", "⚠️ Urban Flash Flood", "🌊 Low-lying Coastal", "🌊 Tidal Runoff Basin"]
+                "Province": ["Metro Manila District 1", "Metro Manila District 2", "Metro Manila District 3", "Metro Manila District 4"],
+                "Capital City/Town": ["Manila City", "Marikina City", "Caloocan City", "Taguig City"],
+                "Risk Classification": ["🌊 Tidal Runoff Basin", "🚨 High P4F Catchment", "⚠️ Urban Flash Flood", "🌊 Low-lying Coastal"]
             }
         elif selected_region == "Region VI (Western Visayas)":
             province_data = {
@@ -139,15 +139,13 @@ else:
         else:
             # Universal placeholder layout for remaining sectors to optimize code size
             province_data = {
-                "Monitored Province": ["Primary Sector Alpha", "Secondary Sector Beta"],
-                "Regional Capital Hub": ["Capital Hub Town A", "Capital Hub Town B"],
+                "Province": ["Primary Sector Alpha", "Secondary Sector Beta"],
+                "Capital City/Town": ["Capital Hub Town A", "Capital Hub Town B"],
                 "Risk Classification": ["🟢 Absorbent Ground Base", "⚠️ Moderate Surface Runoff"]
             }
 
         df_prov = pd.DataFrame(province_data)
-        # Pull selection handle text
-        first_col_name = df_prov.columns[0]
-        selected_prov = st.selectbox("Select Target Area to Analyze Local Municipalities:", df_prov[first_col_name])
+        selected_prov = st.selectbox("Select Target Area to Analyze Local Municipalities:", df_prov["Province"])
         st.dataframe(df_prov, use_container_width=True)
 
     # ==========================================
@@ -167,7 +165,7 @@ else:
         
         st.write(f"📍 **Active Watershed Tracking Nodes ({island_group}):**")
         
-        # Coordinate mapping logic blocks tailored by province
+        # Coordinate mapping logic blocks tailored by province selection
         if island_group == "Luzon" and selected_region == "Region IV-A (CALABARZON)" and selected_prov == "Laguna":
             map_data = {
                 'lat': [14.2137, 14.2215, 14.2250, 14.2800],
@@ -187,3 +185,6 @@ else:
                 'lat': [10.7202, 10.6978, 10.7411],
                 'lon': [122.5621, 122.5855, 122.5310],
                 'Vulnerable Towns': ['Jaro River Mouth Hub', 'Mandurriao Inundation Basin', 'Lapaz High Runoff Zone']
+            }
+            zoom_lvl = 12
+Use code with caution.elif island_group == "Visayas" and selected_region == "Region VII (Central Visayas)" and selected_prov == "Cebu":map_data = {'lat': [10.3157, 10.2930, 10.3420],'lon': [123.8854, 123.8620, 123.9144],'Vulnerable Towns': ['Tejero Waterway Point', 'Kinalumsan Creek Area', 'Mahiga Runoff Base']}zoom_lvl = 12elif island_group == "Mindanao" and selected_region == "Region XI (Davao Region)" and selected_prov == "Davao City":map_data = {'lat': [7.0736, 7.0920, 7.0511],'lon': [125.6120, 125.5980, 125.6315],'Vulnerable Towns': ['Davao River Bridge Node', 'Matina Pangi Runoff Point', 'Agdao Coastal Interface']}zoom_lvl = 11elif island_group == "Mindanao" and selected_region == "Region XIII (Caraga)" and selected_prov == "Agusan del Norte":map_data = {'lat': [8.9475, 8.9610],'lon': [125.5406, 125.5122],'Vulnerable Towns': ['Agusan River Delta Outlet', 'Magallanes Riverbank Monitor']}zoom_lvl = 11else:map_data = {'lat': [12.8797],'lon': [121.7740],'Vulnerable Towns': ['Philippine Geographic Center']}zoom_lvl = 5df_map = pd.DataFrame(map_data)st.map(df_map, zoom=zoom_lvl)# Display corresponding data graph plotsst.write(f"📈 Predictive Hydrograph Waveform (P4F Peak Flow: {p4f_value:.2f} m³/s)")fig, ax = plt.subplots(figsize=(6, 3))ax.plot(time_hours, runoff_flow, color="blue", linewidth=2.5, label="Runoff Volume")ax.axhline(y=8.0, color="red", linestyle="--", label="Flood Line Threshold")ax.set_xlabel("Timeline Duration (Hours)")ax.set_ylabel("Discharge rate (m³/s)")ax.legend()st.pyplot(fig)
