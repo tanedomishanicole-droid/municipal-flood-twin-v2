@@ -74,7 +74,7 @@ else:
         else:
             status = "🔴 LEVEL 3: IMMEDIATE EVACUATION ORDER ACTIVATED"
             color_hex = "#CB4335"
-        st.markdown(f"<div style='padding:15px; border-radius:5px; background-color:{color_hex}; color:white; font-weight:bold; text-align:center;'>{status}</div>", unsafe_style_allowed=True)
+        st.markdown(f"<div style='padding:15px; border-radius:5px; background-color:{color_hex}; color:white; font-weight:bold; text-align:center;'>{status}</div>", unsafe_allow_html=True)
         
     st.markdown("---")
     
