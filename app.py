@@ -137,7 +137,6 @@ else:
                 "Risk Classification": ["🚨 Agusan River Delta", "🌊 Lowland Plain Basin", "⛰️ Mining Runoff Threat", "🌊 Coastal Wave Exposure"]
             }
         else:
-            # Universal placeholder layout for remaining sectors to optimize code size
             province_data = {
                 "Province": ["Primary Sector Alpha", "Secondary Sector Beta"],
                 "Capital City/Town": ["Capital Hub Town A", "Capital Hub Town B"],
@@ -154,7 +153,6 @@ else:
     with col_local:
         st.header("🌊 3. Local Runoff Metrics")
         
-        # Run hydrograph parsing scripts matching Column 1 adjustments
         rain_multipliers = {"Standard Monsoon Shower (30mm/hr)": 1.2, "Severe Tropical Storm (70mm/hr)": 2.5, "Super Typhoon Event (120mm/hr)": 4.8}
         base_flow = rain_multipliers[rain_intensity]
         time_hours = np.arange(0, 12, 0.5)
@@ -165,7 +163,6 @@ else:
         
         st.write(f"📍 **Active Watershed Tracking Nodes ({island_group}):**")
         
-        # Coordinate mapping logic blocks tailored by province selection
         if island_group == "Luzon" and selected_region == "Region IV-A (CALABARZON)" and selected_prov == "Laguna":
             map_data = {
                 'lat': [14.2137, 14.2215, 14.2250, 14.2800],
@@ -187,4 +184,7 @@ else:
                 'Vulnerable Towns': ['Jaro River Mouth Hub', 'Mandurriao Inundation Basin', 'Lapaz High Runoff Zone']
             }
             zoom_lvl = 12
-Use code with caution.elif island_group == "Visayas" and selected_region == "Region VII (Central Visayas)" and selected_prov == "Cebu":map_data = {'lat': [10.3157, 10.2930, 10.3420],'lon': [123.8854, 123.8620, 123.9144],'Vulnerable Towns': ['Tejero Waterway Point', 'Kinalumsan Creek Area', 'Mahiga Runoff Base']}zoom_lvl = 12elif island_group == "Mindanao" and selected_region == "Region XI (Davao Region)" and selected_prov == "Davao City":map_data = {'lat': [7.0736, 7.0920, 7.0511],'lon': [125.6120, 125.5980, 125.6315],'Vulnerable Towns': ['Davao River Bridge Node', 'Matina Pangi Runoff Point', 'Agdao Coastal Interface']}zoom_lvl = 11elif island_group == "Mindanao" and selected_region == "Region XIII (Caraga)" and selected_prov == "Agusan del Norte":map_data = {'lat': [8.9475, 8.9610],'lon': [125.5406, 125.5122],'Vulnerable Towns': ['Agusan River Delta Outlet', 'Magallanes Riverbank Monitor']}zoom_lvl = 11else:map_data = {'lat': [12.8797],'lon': [121.7740],'Vulnerable Towns': ['Philippine Geographic Center']}zoom_lvl = 5df_map = pd.DataFrame(map_data)st.map(df_map, zoom=zoom_lvl)# Display corresponding data graph plotsst.write(f"📈 Predictive Hydrograph Waveform (P4F Peak Flow: {p4f_value:.2f} m³/s)")fig, ax = plt.subplots(figsize=(6, 3))ax.plot(time_hours, runoff_flow, color="blue", linewidth=2.5, label="Runoff Volume")ax.axhline(y=8.0, color="red", linestyle="--", label="Flood Line Threshold")ax.set_xlabel("Timeline Duration (Hours)")ax.set_ylabel("Discharge rate (m³/s)")ax.legend()st.pyplot(fig)
+        elif island_group == "Visayas" and selected_region == "Region VII (Central Visayas)" and selected_prov == "Cebu":
+            map_data = {
+                'lat': [10.3157, 10.2930, 10.3420],
+                'lon': [123.8854, 123.8620, 123.9144],
